@@ -1,3 +1,4 @@
+import { AnalysisPanel } from "../components/AnalysisPanel"
 import { useMemo, useState } from "react"
 import {
   Bar,
@@ -68,6 +69,7 @@ export function OverviewPage() {
         {repos.error ? <ErrorBanner message={repos.error} onRetry={() => void repos.reload()} /> : null}
         {actionError ? <ErrorBanner message={actionError} /> : null}
         {success ? <SuccessBanner message={success} /> : null}
+        <AnalysisPanel repository={repos.data?.[0]} />
 
         <div className="grid gap-5 md:grid-cols-4">
           <Card>

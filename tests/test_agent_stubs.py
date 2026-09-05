@@ -8,8 +8,8 @@ from scanners.base import ScanRequest
 
 def test_security_agent_is_not_implemented():
     result = SecurityAgent().run(AgentContext(repository_id=1, repository_name="demo"))
-    assert result.status == AgentStatus.NOT_IMPLEMENTED
-    assert result.payload == {"repository_id": 1}
+    assert result.status == AgentStatus.READY
+    assert "total_findings" in result.payload
 
 
 def test_scanner_returns_no_findings():

@@ -47,5 +47,21 @@ export const api = {
       body: JSON.stringify(payload),
     }),
   deleteRepository: (id: number) =>
-    request<void>(`/repositories/${id}`, { method: "DELETE" }),
+  request<void>(`/repositories/${id}`, {
+    method: "DELETE",
+  }),
+
+runAnalysis: (payload: {
+  repository_id: number
+  repository_name: string
+  local_path: string
+}) =>
+  request<{
+    status: string
+    message: string
+    payload: Record<string, unknown>
+  }>("/analysis/run", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  }),
 }

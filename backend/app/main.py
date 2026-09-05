@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.database import init_db
 from app.exceptions import register_exception_handlers
-from app.routers import dashboard, health, repositories
+from app.routers import analysis, dashboard, health, repositories
 
 
 @asynccontextmanager
@@ -33,6 +33,7 @@ def create_app() -> FastAPI:
     application.include_router(health.router, prefix="/api")
     application.include_router(repositories.router, prefix="/api")
     application.include_router(dashboard.router, prefix="/api")
+    application.include_router(analysis.router, prefix="/api")
     return application
 
 
