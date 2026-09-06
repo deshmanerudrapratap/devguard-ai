@@ -3,8 +3,8 @@ from agents.repository_intelligence import RepositoryIntelligenceAgent
 from agents.security import SecurityAgent
 from agents.code_quality import CodeQualityAgent
 from agents.predictive_maintenance import PredictiveMaintenanceAgent
-
-
+from agents.refactoring import RefactoringAgent
+from agents.reporting import ReportingAgent
 class AutonomousOrchestrator(BaseAgent):
     agent_id = "orchestrator"
     name = "Autonomous Orchestrator"
@@ -12,10 +12,12 @@ class AutonomousOrchestrator(BaseAgent):
 
     def run(self, context: AgentContext) -> AgentResult:
         agents = [
-            RepositoryIntelligenceAgent(),
+           RepositoryIntelligenceAgent(),
             SecurityAgent(),
             CodeQualityAgent(),
             PredictiveMaintenanceAgent(),
+            RefactoringAgent(),
+            ReportingAgent(),
         ]
 
         results = []
