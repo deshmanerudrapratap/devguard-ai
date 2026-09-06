@@ -71,11 +71,22 @@ export function AnalysisPanel({ repository }: Props) {
     results,
     "predictive-maintenance"
   )
+  const refactoringAgent = getAgent(
+  results,
+  "refactoring"
+)
+
+const reportingAgent = getAgent(
+  results,
+  "reporting"
+)
 
   const repositoryData = repositoryAgent?.payload
   const securityData = securityAgent?.payload
   const qualityData = qualityAgent?.payload
   const maintenanceData = maintenanceAgent?.payload
+  const refactoringData = refactoringAgent?.payload
+  const reportingData = reportingAgent?.payload
 
   const securityFindings =
     (securityData?.total_findings as number) ?? 0
@@ -115,6 +126,21 @@ export function AnalysisPanel({ repository }: Props) {
     (maintenanceData?.maintenance_risk as Record<string, unknown>)
       ?.score as number ?? 0
 
+  const refactoringRecommendations =
+  (refactoringData?.total_recommendations as number) ?? 0
+
+const refactoringStatus =
+  (refactoringData?.status as string) ?? "UNKNOWN"
+
+const reportStatus =
+  (reportingData?.report_status as string) ?? "UNKNOWN"
+
+const reportAgents =
+  (reportingData?.agents_analyzed as number) ?? 0
+
+const reportCompleted =
+  (reportingData?.agents_completed as number) ?? 0    
+
   return (
     <Card title="Autonomous Analysis">
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -145,13 +171,77 @@ export function AnalysisPanel({ repository }: Props) {
 
       {result && (
         <div className="mt-6 space-y-6">
+          <div>
+  <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+    🔧 Refactoring Recommendations
+  </h3>
 
+  <div className="grid gap-4 md:grid-cols-2">
+    <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+      <p className="text-xs uppercase text-slate-500">
+        Recommendations
+      </p>
+
+      <p className="mt-2 text-2xl font-bold text-white">
+        {refactoringRecommendations}
+      </p>
+    </div>
+
+    <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+      <p className="text-xs uppercase text-slate-500">
+        Refactoring Status
+      </p>
+
+      <p className="mt-2 text-xl font-bold text-cyan-400">
+        {refactoringStatus}
+      </p>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+    📄 Engineering Report
+  </h3>
+
+  <div className="grid gap-4 md:grid-cols-3">
+    <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+      <p className="text-xs uppercase text-slate-500">
+        Report Status
+      </p>
+
+      <p className="mt-2 text-xl font-bold text-cyan-400">
+        {reportStatus}
+      </p>
+    </div>
+
+    <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+      <p className="text-xs uppercase text-slate-500">
+        Agents Analyzed
+      </p>
+
+      <p className="mt-2 text-2xl font-bold text-white">
+        {reportAgents}
+      </p>
+    </div>
+
+    <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+      <p className="text-xs uppercase text-slate-500">
+        Agents Completed
+      </p>
+
+      <p className="mt-2 text-2xl font-bold text-white">
+        {reportCompleted}
+      </p>
+    </div>
+  </div>
+</div>
           <div>
             <h3 className="mb-3 text-sm font-semibold text-cyan-400">
               🤖 Agent Pipeline
             </h3>
 
-            <div className="grid gap-3 md:grid-cols-4">
+            <div className="grid gap-3 md:grid-cols-6">
               {results.map((agent) => (
                 <div
                   key={agent.agent_id}

@@ -2,24 +2,16 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { AgentWorkspacePage } from "./pages/AgentWorkspacePage"
 import { OverviewPage } from "./pages/OverviewPage"
 import { RepositoriesPage } from "./pages/RepositoriesPage"
-
+import { SecurityPage } from "./pages/SecurityPage"
+import { CodeQualityPage } from "./pages/CodeQualityPage"
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<OverviewPage />} />
         <Route path="/repositories" element={<RepositoriesPage />} />
-        <Route
-          path="/security"
-          element={
-            <AgentWorkspacePage
-              title="Security"
-              subtitle="Vulnerability and secret analysis will live here."
-              agentId="security"
-              capability="This workspace will later display real scanner output from the Security Agent."
-            />
-          }
-        />
+       <Route path="/security" element={<SecurityPage />} />
+       <Route path="/quality" element={<CodeQualityPage />} />
         <Route
           path="/quality"
           element={
